@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlossaryManagement.Domain", "GlossaryManagement.Domain\GlossaryManagement.Domain.csproj", "{44855E3E-DD41-44D9-9EAA-F3AC2BA9D7AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlossaryManagement.Application", "GlossaryManagement.Application\GlossaryManagement.Application.csproj", "{4451DC17-AD79-45C8-9A16-D9F6D7E3E343}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlossaryManagement.Infrastructure", "GlossaryManagement.Infrastructure\GlossaryManagement.Infrastructure.csproj", "{37B00D47-ECCB-4871-ACB0-1191C709BFDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlossaryManagement.WebAPI", "GlossaryManagement.WebAPI\GlossaryManagement.WebAPI.csproj", "{A78632A3-29E6-4F2A-932A-91612162F763}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44855E3E-DD41-44D9-9EAA-F3AC2BA9D7AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44855E3E-DD41-44D9-9EAA-F3AC2BA9D7AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44855E3E-DD41-44D9-9EAA-F3AC2BA9D7AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44855E3E-DD41-44D9-9EAA-F3AC2BA9D7AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4451DC17-AD79-45C8-9A16-D9F6D7E3E343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4451DC17-AD79-45C8-9A16-D9F6D7E3E343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4451DC17-AD79-45C8-9A16-D9F6D7E3E343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4451DC17-AD79-45C8-9A16-D9F6D7E3E343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37B00D47-ECCB-4871-ACB0-1191C709BFDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37B00D47-ECCB-4871-ACB0-1191C709BFDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37B00D47-ECCB-4871-ACB0-1191C709BFDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37B00D47-ECCB-4871-ACB0-1191C709BFDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A78632A3-29E6-4F2A-932A-91612162F763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A78632A3-29E6-4F2A-932A-91612162F763}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A78632A3-29E6-4F2A-932A-91612162F763}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A78632A3-29E6-4F2A-932A-91612162F763}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
