@@ -38,10 +38,6 @@ public class TermEntityConfiguration : IEntityTypeConfiguration<Term>
         builder.Property(t => t.PublishedAt)
             .IsRequired(false);
         
-        builder.HasOne<Author>()                     
-            .WithMany(a => a.Terms)                 
-            .HasForeignKey(t => t.AuthorId)          
-            .HasPrincipalKey(a => a.Id)          
-            .OnDelete(DeleteBehavior.Cascade);    
+        builder.HasIndex(t => t.AuthorId);
     }
 }

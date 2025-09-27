@@ -24,5 +24,6 @@ public class AuthorEntityConfiguration : IEntityTypeConfiguration<Author>
         
         builder.Property(a=>a.Password)
             .IsRequired();
+        
     }
 }

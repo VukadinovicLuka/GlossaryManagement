@@ -7,8 +7,6 @@ public class Author
     public  AuthorId Id { get;}
     public  string Email { get;}
     public string Password { get;}
-    private readonly List<Term> _terms = new();
-    public IReadOnlyCollection<Term> Terms => _terms;
 
     private Author(AuthorId authorId, string email, string password)
     {
@@ -19,7 +17,7 @@ public class Author
 
     public static Author Create(string email, string password)
     {
-        if (string.IsNullOrWhiteSpace(email))
+        if (!IsValidEmail(email))
         {
             throw new ArgumentNullException("Email is not in the right format", nameof(email));
         }
@@ -30,6 +28,19 @@ public class Author
         }
         
         return new Author(AuthorId.NewId() ,email, password);
+    }
+
+    private static bool IsValidEmail(string email)
+    {
+        try
+        {
+            var addr = new System.Net.Mail.MailAddress(email);
+            return addr.Address == email;
+        }
+        catch
+        {
+            return false;
+        }
     }
     
 }
