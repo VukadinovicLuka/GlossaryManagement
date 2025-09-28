@@ -22,7 +22,7 @@ public class TermController : ControllerBase
     }
 
     [Authorize]
-    [HttpPost("Create")]
+    [HttpPost("/create")]
     public async Task<IActionResult> CreateTerm([FromBody] CreateTermDto request)
     {
         try
@@ -82,6 +82,29 @@ public class TermController : ControllerBase
         
             await _mediator.Send(command);
             return Ok(new { message = "Term archived successfully" });
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return Unauthorized(new { message = ex.Message });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [Authorize]
+    [HttpDelete("/delete/{id}")]
+    public async Task<IActionResult> DeleteTerm(Guid id)
+    {
+        try
+        {
+            var termId = TermId.Create(id);
+            var currentAuthorId = _currentUserService.GetCurrentAuthorId();
+            var command = new DeleteTermCommand(termId, currentAuthorId);
+        
+            await _mediator.Send(command);
+            return Ok(new { message = "Term deleted successfully" });
         }
         catch (UnauthorizedAccessException ex)
         {

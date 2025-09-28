@@ -36,4 +36,10 @@ public class TermRepository : ITermRepository
         _context.Terms.Update(term);
         await _context.SaveChangesAsync();
     }
+
+    public async Task DeleteAsync(Term term)
+    {
+        _context.Terms.Remove(term);
+        await _context.SaveChangesAsync();
+    }
 }

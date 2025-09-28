@@ -9,4 +9,6 @@ public interface ITermRepository
     Task<Term?> GetByNameAsync(string name);
     Task<Term?> GetByIdAsync(TermId termId);
     Task UpdateAsync(Term term);
+    
+    Task DeleteAsync(Term term);
 }

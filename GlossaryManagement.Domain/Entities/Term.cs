@@ -51,6 +51,16 @@ public class Term
                Status == TermStatus.Draft;
     }
 
+    public bool Delete()
+    {
+        if (Status == TermStatus.Draft)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public void Archive()
     {
         if (!CanArchive())
