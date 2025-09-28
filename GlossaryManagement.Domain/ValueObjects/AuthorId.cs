@@ -29,6 +29,17 @@ public class AuthorId : IEquatable<AuthorId>
         return Value == other.Value;
     }
     
+    public static bool operator ==(AuthorId? left, AuthorId? right)
+    {
+        if (left is null) return right is null;
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(AuthorId? left, AuthorId? right)
+    {
+        return !(left == right);
+    }
+    
     public override bool Equals(object obj) => Equals(obj as AuthorId);
     public override int GetHashCode() => Value.GetHashCode();
     public override string ToString() => Value.ToString();

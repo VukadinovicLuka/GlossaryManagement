@@ -30,6 +30,7 @@ public class Author
         return new Author(AuthorId.NewId() ,email, password);
     }
 
+    
     private static bool IsValidEmail(string email)
     {
         try

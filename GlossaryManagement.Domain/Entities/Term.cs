@@ -42,4 +42,28 @@ public class Term
         
         return new Term(TermId.NewId(), name, description, authorId);
     }
+    
+    public bool CanPublish()
+    {
+        return !string.IsNullOrWhiteSpace(Name) &&
+               Description.Length >= 30 &&
+               !ContainsForbiddenWords(Description) &&
+               Status == TermStatus.Draft;
+    }
+
+    public void Publish()
+    {
+        if (!CanPublish())
+            throw new InvalidOperationException("Term cannot be published - validation failed");
+            
+        Status = TermStatus.Published;
+        PublishedAt = DateTime.UtcNow;
+    }
+
+    private bool ContainsForbiddenWords(string text)
+    {
+        var forbiddenWords = new[] { "lorem", "test", "sample" };
+        return forbiddenWords.Any(word => 
+            text.Contains(word, StringComparison.OrdinalIgnoreCase));
+    }
 }

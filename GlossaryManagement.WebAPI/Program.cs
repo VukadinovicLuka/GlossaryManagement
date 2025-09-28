@@ -3,6 +3,7 @@ using Application.Commands;
 using Application.Models;
 using Application.Services;
 using Domain.Repositories;
+using Infrastructure.Authentication;
 using Infrastucture.Authentication;
 using Infrastucture.Persistence;
 using Infrastucture.Persistence.Repositories;
@@ -48,6 +49,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 
@@ -76,13 +78,14 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<ITermRepository, TermRepository>();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope()) // i u produkciji
+using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<GlossaryDbContext>();
     
