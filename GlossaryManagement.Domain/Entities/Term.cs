@@ -51,6 +51,14 @@ public class Term
                Status == TermStatus.Draft;
     }
 
+    public void Archive()
+    {
+        if (!CanArchive())
+            throw new InvalidOperationException("You can archive only published terms");
+
+        Status = TermStatus.Archived;
+    }
+    
     public void Publish()
     {
         if (!CanPublish())
@@ -65,5 +73,13 @@ public class Term
         var forbiddenWords = new[] { "lorem", "test", "sample" };
         return forbiddenWords.Any(word => 
             text.Contains(word, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private bool CanArchive()
+    {
+        if (Status == TermStatus.Published)
+            return true;
+        
+        return false;
     }
 }

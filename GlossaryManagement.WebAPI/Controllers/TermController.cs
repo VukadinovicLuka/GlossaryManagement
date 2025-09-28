@@ -69,4 +69,27 @@ public class TermController : ControllerBase
             return BadRequest(new { message = ex.Message });
         }
     }
+
+    [Authorize]
+    [HttpPut("/archive/{id}")]
+    public async Task<IActionResult> ArchiveTerm(Guid id)
+    {
+        try
+        {
+            var termId = TermId.Create(id);
+            var currentAuthorId = _currentUserService.GetCurrentAuthorId();
+            var command = new ArchiveTermCommand(termId, currentAuthorId);
+        
+            await _mediator.Send(command);
+            return Ok(new { message = "Term archived successfully" });
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return Unauthorized(new { message = ex.Message });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
 }
