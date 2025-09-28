@@ -1,3 +1,4 @@
+using Application.DTOs;
 using Domain.Entities;
 using Domain.Repositories;
 using Domain.ValueObjects;
@@ -41,5 +42,29 @@ public class TermRepository : ITermRepository
     {
         _context.Terms.Remove(term);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<Term>> GetByAuthorIdAsync(AuthorId authorId)
+    {
+        return await _context.Terms
+            .Where(t => t.AuthorId == authorId)
+            .OrderBy(t=>t.Name)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Term>> GetByStatusAsync(TermStatus status)
+    {
+        return await _context.Terms
+            .Where(t => t.Status == status)
+            .OrderBy(t=>t.Name)
+            .ToListAsync();
+    }
+    
+    public async Task<IEnumerable<Term>> GetByAuthorIdAndStatusAsync(AuthorId authorId, TermStatus status)
+    {
+        return await _context.Terms
+            .Where(t => t.AuthorId == authorId && t.Status == status)
+            .OrderBy(t => t.Name)
+            .ToListAsync();
     }
 }

@@ -1,5 +1,6 @@
 using Application.Commands;
 using Application.DTOs;
+using Application.Queries;
 using Application.Services;
 using Domain.ValueObjects;
 using MediatR;
@@ -113,6 +114,106 @@ public class TermController : ControllerBase
         catch (InvalidOperationException ex)
         {
             return BadRequest(new { message = ex.Message });
+        }
+    }
+    
+    [AllowAnonymous]
+    [HttpGet]
+    public async Task<IActionResult> GetPublishedTerms()
+    {
+        try
+        {
+            var query = new GetTermsQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "An error occurred while retrieving terms", details = ex.Message });
+        }
+    }
+
+    [Authorize]
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetTermById(Guid id)
+    {
+        try
+        {
+            var termId = TermId.Create(id);
+            var currentAuthorId = _currentUserService.GetCurrentAuthorId();
+            var query = new GetTermByIdQuery(termId, currentAuthorId);
+            var result = await _mediator.Send(query);
+            
+            return Ok(result);
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return Unauthorized(new { message = ex.Message });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return NotFound(new { message = ex.Message });
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "An error occurred while retrieving the term", details = ex.Message });
+        }
+    }
+
+    [Authorize]
+    [HttpGet("my-terms")]
+    public async Task<IActionResult> GetMyTerms()
+    {
+        try
+        {
+            var currentAuthorId = _currentUserService.GetCurrentAuthorId();
+            var query = new GetTermsByAuthorIdQuery(currentAuthorId);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return Unauthorized(new { message = ex.Message });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "An error occurred while retrieving your terms", details = ex.Message });
+        }
+    }
+
+    [Authorize]
+    [HttpGet("status/{status}")]
+    public async Task<IActionResult> GetTermsByStatus(string status)
+    {
+        try
+        {
+            if (!Enum.TryParse<TermStatus>(status, true, out var termStatus))
+                return BadRequest(new { message = "Invalid status. Valid values are: Draft, Published, Archived" });
+
+            var currentAuthorId = _currentUserService.GetCurrentAuthorId();
+            var query = new GetTermsByStatusQuery(termStatus, currentAuthorId);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return Unauthorized(new { message = ex.Message });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "An error occurred while retrieving terms by status", details = ex.Message });
         }
     }
 }

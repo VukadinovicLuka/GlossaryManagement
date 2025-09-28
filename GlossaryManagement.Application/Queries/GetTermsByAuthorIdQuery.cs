@@ -4,14 +4,12 @@ using MediatR;
 
 namespace Application.Queries;
 
-public class GetTermByIdQuery : IRequest<TermDto?>
+public class GetTermsByAuthorIdQuery : IRequest<IEnumerable<TermDto>>
 {
-    public TermId TermId { get; }
     public AuthorId AuthorId { get; }
 
-    public GetTermByIdQuery(TermId termId, AuthorId authorId)
+    public GetTermsByAuthorIdQuery(AuthorId authorId)
     {
-        TermId = termId;
         AuthorId = authorId;
     }
 }
