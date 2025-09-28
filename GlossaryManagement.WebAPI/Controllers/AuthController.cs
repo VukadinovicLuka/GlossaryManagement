@@ -27,7 +27,8 @@ public class AuthController : ControllerBase
         try
         {
             var result = await _authenticationService.LoginAsync(loginDto);
-            if(result==null) Unauthorized(new {message = "Username or password is incorrect."});
+            if(result==null) 
+                return Unauthorized(new {message = "Username or password is incorrect."});
             
             return Ok(result);
         }
@@ -35,6 +36,5 @@ public class AuthController : ControllerBase
         {
             return StatusCode(500, new { message = "An error occured during login.", error = ex.Message});
         }
-        
     }
 }
