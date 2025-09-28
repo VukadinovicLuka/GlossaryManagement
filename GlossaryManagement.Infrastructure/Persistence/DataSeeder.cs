@@ -46,6 +46,11 @@ public class DataSeeder
             Term.Create("alkaline", "Term pertaining to a highly basic, as opposed to acidic, substance. For example, hydroxide or carbonate of sodium or potassium.",authorId1)
         };
         
+        foreach (var term in terms)
+        {
+            term.Publish();
+        }
+        
         await glossaryDbContext.Terms.AddRangeAsync(terms);
         await glossaryDbContext.SaveChangesAsync();
     }
