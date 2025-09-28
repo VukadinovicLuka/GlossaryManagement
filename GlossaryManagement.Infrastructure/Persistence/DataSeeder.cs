@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.ValueObjects;
+using Infrastucture.Authentication;
 
 namespace Infrastucture.Persistence;
 
@@ -19,8 +20,8 @@ public class DataSeeder
 
         var authors = new[]
         {
-            Author.Create("admin@gmail.com", "admin"),
-            Author.Create("admin2@gmail.com", "admin2"),
+            Author.Create("admin@gmail.com", PasswordHashingService.HashPassword("admin")),
+            Author.Create("admin2@gmail.com", PasswordHashingService.HashPassword("admin2")),
         };
         
         await glossaryDbContext.Authors.AddRangeAsync(authors);

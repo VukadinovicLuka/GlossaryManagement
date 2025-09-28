@@ -8,9 +8,9 @@ public class Author
     public  string Email { get;}
     public string Password { get;}
 
-    private Author(AuthorId authorId, string email, string password)
+    private Author(AuthorId id, string email, string password)
     {
-        Id = authorId;
+        Id = id;
         Email = email;
         Password = password;
     }
