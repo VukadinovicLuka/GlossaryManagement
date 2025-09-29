@@ -25,8 +25,7 @@ A .NET 9 glossary management API implementing Domain-Driven Design with CQRS pat
 
 1. Create database automatically
 2. Seed 2 test authors and 3 published terms
-3. Start API on http://localhost:5210
-4. Swagger UI available at http://localhost:5210/swagger
+3. Start API on http://localhost:5210 ( swagger UI is available with this URL ) 
 
 ### Test Credentials
 ```bash
